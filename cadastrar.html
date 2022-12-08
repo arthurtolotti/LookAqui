@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/styles/cadastrar.css">
+    <!-- <script src="assets/scripts/cadastrar.js"></script> -->
+    <title>LookAqui</title>
+</head>
+
+<body>
+
+    <div class='container'>
+        <div class='card'>
+            <h1> LookAqui - Cadastrar </h1>
+
+            <div id='msgError'></div>
+            <div id='msgSuccess'></div>
+
+            <div class="label-float">
+                <input type="text" id="nome" placeholder=" " required>
+                <label id="labelNome" for="nome">Nome</label>
+            </div>
+
+            <div class="label-float">
+                <input type="email" id="usuario" placeholder=" " required>
+                <label id="labelUsuario" for="usuario">Email</label>
+            </div>
+
+            <div class="label-float">
+                <input type="password" id="senha" placeholder=" " required>
+                <label id="labelSenha" for="senha">Senha</label>
+                <i id="verSenha" class="fa fa-eye" aria-hidden="true"></i>
+
+            </div>
+
+            <div class="label-float">
+                <input type="password" id="confirmSenha" placeholder=" " required>
+                <label id="labelConfirmSenha" for="confirmSenha">Confirmar Senha</label>
+                <i id="verConfirmSenha" class="fa fa-eye" aria-hidden="true"></i>
+            </div>
+
+            <div class='justify-center'>
+                <button onclick='cadastrar()'>Cadastrar</button>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+<script>
+    let btn = document.querySelector('#verSenha')
+let btnConfirm = document.querySelector('#verConfirmSenha')
+
+
+let nome = document.querySelector('#nome')
+let labelNome = document.querySelector('#labelNome')
+let validNome = false
+
+let usuario = document.querySelector('#usuario')
+let labelUsuario = document.querySelector('#labelUsuario')
+let validUsuario = false
+
+let senha = document.querySelector('#senha')
+let labelSenha = document.querySelector('#labelSenha')
+let validSenha = false
+
+let confirmSenha = document.querySelector('#confirmSenha')
+let labelConfirmSenha = document.querySelector('#labelConfirmSenha')
+let validConfirmSenha = false
+
+let msgError = document.querySelector('#msgError')
+let msgSuccess = document.querySelector('#msgSuccess')
+
+nome.addEventListener('keyup', () => {
+  if(nome.value.length <= 2){
+    labelNome.setAttribute('style', 'color: red')
+    labelNome.innerHTML = 'Nome *Insira no minimo 3 caracteres'
+    nome.setAttribute('style', 'border-color: red')
+    validNome = false
+  } else {
+    labelNome.setAttribute('style', 'color: green')
+    labelNome.innerHTML = 'Nome'
+    nome.setAttribute('style', 'border-color: green')
+    validNome = true
+  }
+})
+
+usuario.addEventListener('keyup', () => {
+  if(usuario.value.length <= 4){
+    labelUsuario.setAttribute('style', 'color: red')
+    labelUsuario.innerHTML = 'Email *Insira um email válido'
+    usuario.setAttribute('style', 'border-color: red')
+    validUsuario = false
+  } else {
+    labelUsuario.setAttribute('style', 'color: green')
+    labelUsuario.innerHTML = 'Email'
+    usuario.setAttribute('style', 'border-color: green')
+    validUsuario = true
+  }
+})
+
+senha.addEventListener('keyup', () => {
+  if(senha.value.length <= 8){
+    labelSenha.setAttribute('style', 'color: red')
+    labelSenha.innerHTML = 'Senha *Insira no minimo 8 caracteres'
+    senha.setAttribute('style', 'border-color: red')
+    validSenha = false
+  } else {
+    labelSenha.setAttribute('style', 'color: green')
+    labelSenha.innerHTML = 'Senha'
+    senha.setAttribute('style', 'border-color: green')
+    validSenha = true
+  } if(senha.value.length === 9){
+    labelSenha.setAttribute('style', 'color: red')
+    labelSenha.innerHTML = 'Senha Média'
+    senha.setAttribute('style', 'border-color: red')
+    validSenha = false
+  }if(senha.value.length >= 10){
+    labelSenha.setAttribute('style', 'color: red')
+    labelSenha.innerHTML = 'Senha Forte *Termine seu cadastro'
+    senha.setAttribute('style', 'border-color: red')
+    validSenha = false
+  }
+})
+
+confirmSenha.addEventListener('keyup', () => {
+  if(senha.value != confirmSenha.value){
+    labelConfirmSenha.setAttribute('style', 'color: red')
+    labelConfirmSenha.innerHTML = 'Confirmar Senha *As senhas não conferem'
+    confirmSenha.setAttribute('style', 'border-color: red')
+    validConfirmSenha = false
+  } else {
+    labelConfirmSenha.setAttribute('style', 'color: green')
+    labelConfirmSenha.innerHTML = 'Confirmar Senha'
+    confirmSenha.setAttribute('style', 'border-color: green')
+    validConfirmSenha = true
+  }
+})
+
+function cadastrar(){
+  if(validNome && validUsuario && validSenha && validConfirmSenha){
+    let listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]')
+    
+    listaUser.push(
+    {
+      nomeCad: nome.value,
+      userCad: usuario.value,
+      senhaCad: senha.value
+    }
+    )
+    
+    localStorage.setItem('listaUser', JSON.stringify(listaUser))
+    
+   
+    msgSuccess.setAttribute('style', 'display: block')
+    msgSuccess.innerHTML = '<strong>Cadastrando usuário...</strong>'
+    msgError.setAttribute('style', 'display: none')
+    msgError.innerHTML = ''
+    
+    setTimeout(()=>{
+        window.location.href = 'filmes.html'
+    }, 3000)
+  
+    
+  } 
+  
+  //else {
+  //  msgError.setAttribute('style', 'display: block')
+  //  msgError.innerHTML = '<strong>Preencha todos os campos corretamente antes de cadastrar</strong>'
+   // msgSuccess.innerHTML = ''
+   // msgSuccess.setAttribute('style', 'display: none')
+  //}
+}
+
+btn.addEventListener('click', ()=>{
+  let inputSenha = document.querySelector('#senha')
+  
+  if(inputSenha.getAttribute('type') == 'password'){
+    inputSenha.setAttribute('type', 'text')
+  } else {
+    inputSenha.setAttribute('type', 'password')
+  }
+})
+
+btnConfirm.addEventListener('click', ()=>{
+  let inputConfirmSenha = document.querySelector('#confirmSenha')
+  
+  if(inputConfirmSenha.getAttribute('type') == 'password'){
+    inputConfirmSenha.setAttribute('type', 'text')
+  } else {
+    inputConfirmSenha.setAttribute('type', 'password')
+  }
+})
+</script>
+</html>

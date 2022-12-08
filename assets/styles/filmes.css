@@ -1,0 +1,58 @@
+.todos{
+	padding: 0 4%;
+	height: 100%;
+}
+.todos span{
+	color: darkslategray;
+	font-size: 15px;
+	line-height: 17px;
+	font-weight: 600;
+}
+.slider{
+	margin-top: 8px;
+	display: flex;
+	overflow: hidden;
+}
+.slider .filme{
+	min-width: 25px;
+}
+.slider .filme img{
+	max-width: 100%;
+	padding-right: 5px;
+}
+img{
+	width: 190px;
+	height: 279px;
+}
+.footer-login{
+	padding: 20px;
+	background-color: lightgreen;
+	border-radius: 20px;
+}
+.footer-login .duvidas{
+	max-width: 1000px;
+	margin: 0 auto;
+}
+.footer-login .duvidas .meios{
+	display: flex;
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+.duvidas .meios ul{
+	list-style: none;
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+}
+.duvidas .meios ul li{
+	width: 25%;
+	padding: 10px 0;
+}
+.duvidas .meios ul li a{
+	color: black;
+	text-decoration: lightgreen;
+}
+.h1{
+    color: white;
+    background-color: lightgreen;
+}
